@@ -1,0 +1,278 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="librayautomationModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tbladminup">
+          <Key>
+            <PropertyRef Name="kullaniciid" />
+          </Key>
+          <Property Name="kullaniciid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="kullaniciadi" Type="nvarchar" MaxLength="50" />
+          <Property Name="sifre" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblbooks">
+          <Key>
+            <PropertyRef Name="kitapid" />
+          </Key>
+          <Property Name="kitapid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="kitapismi" Type="nvarchar" MaxLength="50" />
+          <Property Name="yazar" Type="nvarchar" MaxLength="30" />
+          <Property Name="yayinevi" Type="nvarchar" MaxLength="30" />
+          <Property Name="sayfasayisi" Type="nvarchar" MaxLength="10" />
+          <Property Name="kategori" Type="nvarchar" MaxLength="50" />
+          <Property Name="stok" Type="int" />
+        </EntityType>
+        <EntityType Name="tblborrowedbooks">
+          <Key>
+            <PropertyRef Name="emanetid" />
+          </Key>
+          <Property Name="emanetid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="kitapid" Type="int" />
+          <Property Name="uyeid" Type="int" />
+          <Property Name="alistarihi" Type="datetime" />
+          <Property Name="iadetarihi" Type="datetime" />
+          <Property Name="iadedurumu" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="tblcategories">
+          <Key>
+            <PropertyRef Name="kategoriid" />
+          </Key>
+          <Property Name="kategoriid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="kategoriadi" Type="nvarchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="tblmembers">
+          <Key>
+            <PropertyRef Name="uyeid" />
+          </Key>
+          <Property Name="uyeid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ad" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="soyad" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="telno" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="email" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="adres" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="kayittarihi" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__tblborrow__kitap__534D60F1">
+          <End Role="tblbooks" Type="Self.tblbooks" Multiplicity="0..1" />
+          <End Role="tblborrowedbooks" Type="Self.tblborrowedbooks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblbooks">
+              <PropertyRef Name="kitapid" />
+            </Principal>
+            <Dependent Role="tblborrowedbooks">
+              <PropertyRef Name="kitapid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblborrow__uyeid__5441852A">
+          <End Role="tblmembers" Type="Self.tblmembers" Multiplicity="0..1" />
+          <End Role="tblborrowedbooks" Type="Self.tblborrowedbooks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblmembers">
+              <PropertyRef Name="uyeid" />
+            </Principal>
+            <Dependent Role="tblborrowedbooks">
+              <PropertyRef Name="uyeid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="librayautomationModelStoreContainer">
+          <EntitySet Name="tbladminup" EntityType="Self.tbladminup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblbooks" EntityType="Self.tblbooks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblborrowedbooks" EntityType="Self.tblborrowedbooks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblcategories" EntityType="Self.tblcategories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblmembers" EntityType="Self.tblmembers" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__tblborrow__kitap__534D60F1" Association="Self.FK__tblborrow__kitap__534D60F1">
+            <End Role="tblbooks" EntitySet="tblbooks" />
+            <End Role="tblborrowedbooks" EntitySet="tblborrowedbooks" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblborrow__uyeid__5441852A" Association="Self.FK__tblborrow__uyeid__5441852A">
+            <End Role="tblmembers" EntitySet="tblmembers" />
+            <End Role="tblborrowedbooks" EntitySet="tblborrowedbooks" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="librayautomationModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tblbooks">
+          <Key>
+            <PropertyRef Name="kitapid" />
+          </Key>
+          <Property Name="kitapid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="kitapismi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="yazar" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="yayinevi" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="sayfasayisi" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="kategori" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="stok" Type="Int32" />
+          <NavigationProperty Name="tblborrowedbooks" Relationship="Self.FK__tblborrow__kitap__534D60F1" FromRole="tblbooks" ToRole="tblborrowedbooks" />
+        </EntityType>
+        <EntityType Name="tblborrowedbooks">
+          <Key>
+            <PropertyRef Name="emanetid" />
+          </Key>
+          <Property Name="emanetid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="kitapid" Type="Int32" />
+          <Property Name="uyeid" Type="Int32" />
+          <Property Name="alistarihi" Type="DateTime" Precision="3" />
+          <Property Name="iadetarihi" Type="DateTime" Precision="3" />
+          <Property Name="iadedurumu" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblbooks" Relationship="Self.FK__tblborrow__kitap__534D60F1" FromRole="tblborrowedbooks" ToRole="tblbooks" />
+          <NavigationProperty Name="tblmembers" Relationship="Self.FK__tblborrow__uyeid__5441852A" FromRole="tblborrowedbooks" ToRole="tblmembers" />
+        </EntityType>
+        <EntityType Name="tblcategories">
+          <Key>
+            <PropertyRef Name="kategoriid" />
+          </Key>
+          <Property Name="kategoriid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="kategoriadi" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tblmembers">
+          <Key>
+            <PropertyRef Name="uyeid" />
+          </Key>
+          <Property Name="uyeid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ad" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="soyad" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="telno" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="adres" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="kayittarihi" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="tblborrowedbooks" Relationship="Self.FK__tblborrow__uyeid__5441852A" FromRole="tblmembers" ToRole="tblborrowedbooks" />
+        </EntityType>
+        <Association Name="FK__tblborrow__kitap__534D60F1">
+          <End Role="tblbooks" Type="Self.tblbooks" Multiplicity="0..1" />
+          <End Role="tblborrowedbooks" Type="Self.tblborrowedbooks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblbooks">
+              <PropertyRef Name="kitapid" />
+            </Principal>
+            <Dependent Role="tblborrowedbooks">
+              <PropertyRef Name="kitapid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblborrow__uyeid__5441852A">
+          <End Role="tblmembers" Type="Self.tblmembers" Multiplicity="0..1" />
+          <End Role="tblborrowedbooks" Type="Self.tblborrowedbooks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblmembers">
+              <PropertyRef Name="uyeid" />
+            </Principal>
+            <Dependent Role="tblborrowedbooks">
+              <PropertyRef Name="uyeid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="librayautomationEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblbooks" EntityType="Self.tblbooks" />
+          <EntitySet Name="tblborrowedbooks" EntityType="Self.tblborrowedbooks" />
+          <EntitySet Name="tblcategories" EntityType="Self.tblcategories" />
+          <EntitySet Name="tblmembers" EntityType="Self.tblmembers" />
+          <AssociationSet Name="FK__tblborrow__kitap__534D60F1" Association="Self.FK__tblborrow__kitap__534D60F1">
+            <End Role="tblbooks" EntitySet="tblbooks" />
+            <End Role="tblborrowedbooks" EntitySet="tblborrowedbooks" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblborrow__uyeid__5441852A" Association="Self.FK__tblborrow__uyeid__5441852A">
+            <End Role="tblmembers" EntitySet="tblmembers" />
+            <End Role="tblborrowedbooks" EntitySet="tblborrowedbooks" />
+          </AssociationSet>
+          <EntitySet Name="tbladminup" EntityType="librayautomationModel.tbladminup" />
+        </EntityContainer>
+        <EntityType Name="tbladminup">
+          <Key>
+            <PropertyRef Name="kullaniciid" />
+          </Key>
+          <Property Name="kullaniciid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="kullaniciadi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="sifre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="librayautomationModelStoreContainer" CdmEntityContainer="librayautomationEntities">
+          <EntitySetMapping Name="tblbooks">
+            <EntityTypeMapping TypeName="librayautomationModel.tblbooks">
+              <MappingFragment StoreEntitySet="tblbooks">
+                <ScalarProperty Name="kitapid" ColumnName="kitapid" />
+                <ScalarProperty Name="kitapismi" ColumnName="kitapismi" />
+                <ScalarProperty Name="yazar" ColumnName="yazar" />
+                <ScalarProperty Name="yayinevi" ColumnName="yayinevi" />
+                <ScalarProperty Name="sayfasayisi" ColumnName="sayfasayisi" />
+                <ScalarProperty Name="kategori" ColumnName="kategori" />
+                <ScalarProperty Name="stok" ColumnName="stok" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblborrowedbooks">
+            <EntityTypeMapping TypeName="librayautomationModel.tblborrowedbooks">
+              <MappingFragment StoreEntitySet="tblborrowedbooks">
+                <ScalarProperty Name="emanetid" ColumnName="emanetid" />
+                <ScalarProperty Name="kitapid" ColumnName="kitapid" />
+                <ScalarProperty Name="uyeid" ColumnName="uyeid" />
+                <ScalarProperty Name="alistarihi" ColumnName="alistarihi" />
+                <ScalarProperty Name="iadetarihi" ColumnName="iadetarihi" />
+                <ScalarProperty Name="iadedurumu" ColumnName="iadedurumu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblcategories">
+            <EntityTypeMapping TypeName="librayautomationModel.tblcategories">
+              <MappingFragment StoreEntitySet="tblcategories">
+                <ScalarProperty Name="kategoriid" ColumnName="kategoriid" />
+                <ScalarProperty Name="kategoriadi" ColumnName="kategoriadi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblmembers">
+            <EntityTypeMapping TypeName="librayautomationModel.tblmembers">
+              <MappingFragment StoreEntitySet="tblmembers">
+                <ScalarProperty Name="uyeid" ColumnName="uyeid" />
+                <ScalarProperty Name="ad" ColumnName="ad" />
+                <ScalarProperty Name="soyad" ColumnName="soyad" />
+                <ScalarProperty Name="telno" ColumnName="telno" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="adres" ColumnName="adres" />
+                <ScalarProperty Name="kayittarihi" ColumnName="kayittarihi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbladminup">
+            <EntityTypeMapping TypeName="librayautomationModel.tbladminup">
+              <MappingFragment StoreEntitySet="tbladminup">
+                <ScalarProperty Name="sifre" ColumnName="sifre" />
+                <ScalarProperty Name="kullaniciadi" ColumnName="kullaniciadi" />
+                <ScalarProperty Name="kullaniciid" ColumnName="kullaniciid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
