@@ -4,7 +4,7 @@ Bu proje, C# ve SQL Server kullanılarak geliştirilmiş kapsamlı bir kütüpha
 
 ## 🚀 Özellikler
 * **Üye Yönetimi:** Üye ekleme, silme ve güncelleme işlemleri.
-* **Kitap Yönetimi:** Kitap stok takibi ve kategori işlemleri.
+* **Kitap Yönetimi:** Kitap  takibi ve kategori işlemleri.
 * **Emanet Sistemi:** Ödünç verme ve iade alma süreçleri.
 * **Veritabanı:** Entity Framework ile güvenli ve hızlı veri yönetimi.
 
